@@ -1,5 +1,4 @@
-// Set main variable
-
+// Set main variables
 var board = createBoard()
 
 // Set values to the board cells
@@ -7,9 +6,41 @@ var board = createBoard()
 initBoard(board)
 
 
-// Create html board
+// Create a clean new board for the user
 
+var user_board = createBoard()
 createHTMLBoard()
+
+console.log(board)
+
+
+// Solve button
+$(document).ready(function () {
+    $('button').click(function(){ 
+        solve(board)
+    })
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -23,6 +54,13 @@ function createBoard(){
     var board = new Array(9)
     for(i = 0; i < board.length; i++){
         board[i] = new Array(9)
+    }
+
+    // Now we set all values to none in order to change the default value
+    for(i = 0; i < board.length; i++){
+        for(j = 0; j < board.length; j++){
+            board[i][j] = ' '
+        }
     }
     return board
 }
@@ -69,6 +107,7 @@ function initBoard(board){
 
     for(i = 0; i < board.length; i++){
         for(j = 0; j < board.length; j++){
+            
             // First cell
             if(i == 0 || i == 1 || i == 2 ){
                 if(j == 0 || j == 1 ||j == 2){
@@ -241,11 +280,15 @@ function initBoard(board){
 
 // This method is going to generate the html code
 function createHTMLBoard(){
+    var table = document.createElement('table')
+    table.id = 'user_board'
+    document.body.append(table)
     for(i = 0; i < board.length; i++){
         var tr = document.createElement('tr')
-        document.body.append(tr)
+        tr.id = 'row'+i
+        table.append(tr)
         for(j = 0; j<  board.length; j++){
-            var td = document.createElement('td')
+            var td = document.createElement('input')
             if(i == 0 || i == 1 || i ==2){
                 if(j == 0 || j == 1 || j == 2){
                     td.className = 'cell1'
@@ -279,8 +322,23 @@ function createHTMLBoard(){
                     td.className = 'cell9'
                 }
             }
-            td.innerText = board[i][j]
             tr.appendChild(td)
+        }
+    }
+}
+
+
+function solve(board){
+    var user_board_array = []
+    $('#user_board tr').each(function(){
+        $(this).find('input').each(function(){
+            user_board_array.push($(this).val())
+        })
+    })
+
+    for(i = 0; i < board.length; i++){
+        for(j = 0; j < board.length; j++){
+            
         }
     }
 }
